@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Link, useLocation, useRouteMatch, useHistory } from "react-router-dom";
+import { useLocation, useRouteMatch, useHistory } from "react-router-dom";
 import queryString from "query-string";
 // import { toast } from "react-toastify";
 import { fetchSearchMovie } from "../../service/Request";
+import CardMovie from "../cardMovie/CardMovie";
 const Movies = () => {
   const [valueInput, setValueInput] = useState("");
   const [query, setQuery] = useState("");
@@ -12,7 +13,6 @@ const Movies = () => {
   useEffect(() => {
     const parsed = queryString.parse(location.search);
     parsed.query && fetchSearchMovie(parsed.query).then(setQuery);
-    console.log(parsed.query);
   }, [location.search]);
 
   const BASE_IMG = "https://image.tmdb.org/t/p/w500";
@@ -45,28 +45,11 @@ const Movies = () => {
         <span className="SearchForm-button-label">Search</span>
       </button>
       <ul className="ImageGallery">
-        {query?.results?.map((film) => {
-          return (
-            <Link
-              key={film.id}
-              to={{
-                pathname: `/films/${film.id}`,
-                state: { from: location },
-              }}
-            >
-              <li key={film.id} className="ImageGalleryItem">
-                {film.poster_path && (
-                  <img
-                    src={`${BASE_IMG}/${film.poster_path}`}
-                    alt=""
-                    className="ImageGalleryItem-image"
-                  />
-                )}
-                {film.original_title || film.name}
-              </li>
-            </Link>
-          );
-        })}
+        <CardMovie
+          filmTrend={query.results}
+          BASE_IMG={BASE_IMG}
+          location={location}
+        />
       </ul>
     </>
   );

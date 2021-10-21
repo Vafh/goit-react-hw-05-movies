@@ -1,6 +1,5 @@
 import React from "react";
-const MovieReviews = ({ reviews }) => {
-  console.log(reviews);
+const MovieReviewsPage = ({ reviews }) => {
   if (reviews?.results?.length !== 0) {
     return reviews?.results?.map((review) => (
       <li key={review.id}>
@@ -16,4 +15,4 @@ const MovieReviews = ({ reviews }) => {
   );
 };
 
-export default MovieReviews;
+export default MovieReviewsPage;

@@ -1,5 +1,5 @@
 import React from "react";
-// import PropTypes from "prop-types";
+import PropTypes from "prop-types";
 import { useHistory } from "react-router";
 
 const BtnGoBack = ({ goBack }) => {
@@ -16,6 +16,6 @@ const BtnGoBack = ({ goBack }) => {
 
 export default BtnGoBack;
 
-// BtnGoBack.propTypes = {
-//   handleBtnClick: PropTypes.func.isRequired,
-// };
+BtnGoBack.propTypes = {
+  handleBtnClick: PropTypes.string,
+};

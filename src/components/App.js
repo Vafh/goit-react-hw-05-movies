@@ -4,9 +4,9 @@ import { Route, Switch } from "react-router";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { fetchTranding } from "../service/Request";
-import FilmsDetails from "./filmsDetails/FilmsDetails";
-import HomePage from "./homePage/HomePage";
-import Movies from "./movies/Movies";
+import FilmsDetailsPage from "../pages/filmsDetailsPage/FilmsDetailsPage";
+import HomePage from "../pages/homePage/HomePage";
+import MoviesPage from "../pages/moviesPage/MoviesPage";
 import Navigation from "./navigation/Navigation";
 
 export default function App() {
@@ -24,10 +24,10 @@ export default function App() {
           <HomePage filmTrend={filmTrend} />
         </Route>
         <Route exact path="/films">
-          <Movies />
+          <MoviesPage />
         </Route>
         <Route path="/films/:filmsId">
-          <FilmsDetails />
+          <FilmsDetailsPage />
         </Route>
       </Switch>
       <ToastContainer />

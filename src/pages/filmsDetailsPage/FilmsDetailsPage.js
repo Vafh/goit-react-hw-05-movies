@@ -6,9 +6,9 @@ import {
   fetchMovieDetailsAuthors,
   fetchMovieDetailsReviews,
 } from "../../service/Request";
-import BtnGoBack from "../btn/btn";
-import MovieAuthors from "../movieAuthors/MovieAuthors";
-import MovieReviews from "../movieReviews/MovieReviews";
+import BtnGoBack from "../../components/btn/btn";
+import MovieAuthorsPage from "../movieAuthorsPage/MovieAuthorsPage";
+import MovieReviewsPage from "../movieReviewsPage/MovieReviewsPage";
 const FilmsDetails = () => {
   const { filmsId } = useParams();
   const [movieDetails, setMovieDetails] = useState(null);
@@ -22,7 +22,6 @@ const FilmsDetails = () => {
     fetchMovieDetailsAuthors(filmsId).then(setAuthors);
     fetchMovieDetailsReviews(filmsId).then(setReviews);
   }, [filmsId]);
-  console.log(movieDetails);
   useEffect(() => {
     if (!location.state) return;
     location.state?.from && setFrom(location.state.from);
@@ -73,12 +72,12 @@ const FilmsDetails = () => {
           <hr />
           <ul>
             <Route path={`${matchUrl.url}/cast`}>
-              <MovieAuthors img={BASE_IMG} authors={authors} />
+              <MovieAuthorsPage img={BASE_IMG} authors={authors} />
             </Route>
           </ul>
           <ul>
             <Route path={`${matchUrl.url}/reviews`}>
-              <MovieReviews reviews={reviews} />
+              <MovieReviewsPage reviews={reviews} />
             </Route>
           </ul>
         </>

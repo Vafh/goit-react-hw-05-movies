@@ -1,5 +1,5 @@
 import React from "react";
-const MovieAuthors = ({ img, authors }) => {
+const MovieAuthorsPage = ({ img, authors }) => {
   return (
     authors &&
     authors.cast?.map((author) => (
@@ -18,4 +18,4 @@ const MovieAuthors = ({ img, authors }) => {
   );
 };
 
-export default MovieAuthors;
+export default MovieAuthorsPage;
