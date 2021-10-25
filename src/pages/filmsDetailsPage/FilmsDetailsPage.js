@@ -1,26 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, lazy, Suspense } from "react";
 import { Route, useParams, useRouteMatch } from "react-router";
 import { Link, useLocation } from "react-router-dom";
 import {
   fetchMovieDetails,
-  fetchMovieDetailsAuthors,
-  fetchMovieDetailsReviews,
 } from "../../service/Request";
-import BtnGoBack from "../../components/btn/btn";
-import MovieAuthorsPage from "../movieAuthorsPage/MovieAuthorsPage";
-import MovieReviewsPage from "../movieReviewsPage/MovieReviewsPage";
+const BtnGoBack = lazy(() => import("../../components/btn/btn"))
+const MovieAuthorsPage = lazy(()=>import("../movieAuthorsPage/MovieAuthorsPage"))
+const MovieReviewsPage = lazy(() => import("../movieReviewsPage/MovieReviewsPage"))
+
 const FilmsDetails = () => {
   const { filmsId } = useParams();
   const [movieDetails, setMovieDetails] = useState(null);
-  const [authors, setAuthors] = useState(null);
-  const [reviews, setReviews] = useState(null);
   const [from, setFrom] = useState(null);
   const location = useLocation();
   const BASE_IMG = "https://image.tmdb.org/t/p/w200";
   useEffect(() => {
     fetchMovieDetails(filmsId).then(setMovieDetails);
-    fetchMovieDetailsAuthors(filmsId).then(setAuthors);
-    fetchMovieDetailsReviews(filmsId).then(setReviews);
   }, [filmsId]);
   useEffect(() => {
     if (!location.state) return;
@@ -58,7 +53,7 @@ const FilmsDetails = () => {
 
           <ul>
             Additional information
-            {authors && (
+             
               <>
                 <Link to={`${matchUrl.url}/cast`}>
                   <li>Cast</li>
@@ -67,18 +62,26 @@ const FilmsDetails = () => {
                   <li>Reviews</li>
                 </Link>
               </>
-            )}
+            
           </ul>
           <hr />
           <ul>
-            <Route path={`${matchUrl.url}/cast`}>
-              <MovieAuthorsPage img={BASE_IMG} authors={authors} />
-            </Route>
+            
+              <Route path={`${matchUrl.url}/cast`}>
+            <Suspense fallback={<div>Loading...</div>}>    
+              <MovieAuthorsPage filmsId={filmsId} img={BASE_IMG} />
+            </Suspense>
+              </Route>
+            
           </ul>
           <ul>
-            <Route path={`${matchUrl.url}/reviews`}>
-              <MovieReviewsPage reviews={reviews} />
+            
+              <Route path={`${matchUrl.url}/reviews`}>
+            <Suspense fallback={<div>Loading...</div>}>    
+              <MovieReviewsPage filmsId={filmsId} />
+            </Suspense>  
             </Route>
+            
           </ul>
         </>
       )}

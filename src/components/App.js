@@ -1,13 +1,13 @@
-import { useEffect, useState } from "react";
-// import Loader from "react-loader-spinner";
+import { useEffect, useState, lazy, Suspense } from "react";
+import Loader from "react-loader-spinner";
 import { Route, Switch } from "react-router";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { fetchTranding } from "../service/Request";
-import FilmsDetailsPage from "../pages/filmsDetailsPage/FilmsDetailsPage";
-import HomePage from "../pages/homePage/HomePage";
-import MoviesPage from "../pages/moviesPage/MoviesPage";
-import Navigation from "./navigation/Navigation";
+const Navigation = lazy(() => import("./navigation/Navigation"))
+const MoviesPage = lazy(() => import("../pages/moviesPage/MoviesPage"))
+const HomePage = lazy(() => import("../pages/homePage/HomePage"))
+const FilmsDetailsPage = lazy(() => import("../pages/filmsDetailsPage/FilmsDetailsPage"))
 
 export default function App() {
   const [filmTrend, setFilmTrend] = useState([]);
@@ -18,6 +18,7 @@ export default function App() {
   }, []);
   return (
     <>
+      <Suspense fallback={<Loader/>}>
       <Navigation />
       <Switch>
         <Route exact path="/">
@@ -30,7 +31,8 @@ export default function App() {
           <FilmsDetailsPage />
         </Route>
       </Switch>
-      <ToastContainer />
+        <ToastContainer />
+        </Suspense>
     </>
   );
 }

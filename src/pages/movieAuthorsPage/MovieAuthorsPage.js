@@ -1,7 +1,12 @@
-import React from "react";
-const MovieAuthorsPage = ({ img, authors }) => {
+import React, { useEffect, useState } from "react";
+import { fetchMovieDetailsAuthors } from "../../service/Request";
+const MovieAuthorsPage = ({ filmsId, img }) => {
+  const [authors, setAuthors] = useState(null);
+  useEffect(() => {
+ fetchMovieDetailsAuthors(filmsId).then(setAuthors);
+  }, [filmsId]);
   return (
-    authors &&
+    authors&&
     authors.cast?.map((author) => (
       <li key={author.cast_id}>
         {author.name}
