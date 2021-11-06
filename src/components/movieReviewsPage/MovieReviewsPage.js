@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { fetchMovieDetailsReviews } from "../../service/Request";
-const MovieReviewsPage = ({filmsId }) => {
+const MovieReviewsPage = ({ filmsId }) => {
   const [reviews, setReviews] = useState(null);
   useEffect(() => {
-    fetchMovieDetailsReviews(filmsId).then(setReviews);
+    fetchMovieDetailsReviews(filmsId)
+      .then(setReviews)
+      .catch((err) => console.log(err.message));
   }, [filmsId]);
   if (reviews?.results?.length) {
     return reviews?.results?.map((review) => (

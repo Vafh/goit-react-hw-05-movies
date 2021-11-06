@@ -1,21 +1,25 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { useHistory } from "react-router";
 
-const BtnGoBack = ({ goBack }) => {
-  const history = useHistory();
-  const onClick = () => {
-    history.push(goBack || "/");
-  };
+import { ButtonStyles } from "./ButtonStyles";
+
+const Btn = ({ onKeyPress, handler, text, spanStyles, btnStyles }) => {
   return (
-    <button onClick={onClick} type="button">
-      <span>Go back</span>
-    </button>
+    <ButtonStyles>
+      <button
+        onClick={handler}
+        onKeyPress={onKeyPress}
+        type="button"
+        className={btnStyles}
+      >
+        <span className={spanStyles}>{text}</span>
+      </button>
+    </ButtonStyles>
   );
 };
 
-export default BtnGoBack;
+export default Btn;
 
-BtnGoBack.propTypes = {
+Btn.propTypes = {
   handleBtnClick: PropTypes.string,
 };

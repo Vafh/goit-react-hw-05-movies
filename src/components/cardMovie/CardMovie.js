@@ -1,18 +1,20 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { CardMovieStyles } from "./CardMovieStyles";
 const CardMovie = ({ filmTrend, location, BASE_IMG }) => {
   return (
     <>
       {filmTrend?.map((film) => {
         return (
-          <Link
-            key={film.id}
-            to={{
-              pathname: `/films/${film.id}`,
-              state: { from: location },
-            }}
-          >
-            <li key={film.id}>
+          <CardMovieStyles key={film.id}>
+            {/* <li key={film.id} className="cardMovie-item"> */}
+            <Link
+              key={film.id}
+              to={{
+                pathname: `/films/${film.id}`,
+                state: { from: location },
+              }}
+            >
               {BASE_IMG && film.poster_path && (
                 <img
                   src={`${BASE_IMG}/${film.poster_path}`}
@@ -20,9 +22,10 @@ const CardMovie = ({ filmTrend, location, BASE_IMG }) => {
                   className="ImageGalleryItem-image"
                 />
               )}
-              {film.original_title}
-            </li>
-          </Link>
+              <p>{film.original_title}</p>
+            </Link>
+            {/* </li> */}
+          </CardMovieStyles>
         );
       })}
     </>

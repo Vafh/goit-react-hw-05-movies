@@ -3,10 +3,12 @@ import { fetchMovieDetailsAuthors } from "../../service/Request";
 const MovieAuthorsPage = ({ filmsId, img }) => {
   const [authors, setAuthors] = useState(null);
   useEffect(() => {
- fetchMovieDetailsAuthors(filmsId).then(setAuthors);
+    fetchMovieDetailsAuthors(filmsId)
+      .then(setAuthors)
+      .catch((err) => console.log(err.message));
   }, [filmsId]);
   return (
-    authors&&
+    authors &&
     authors.cast?.map((author) => (
       <li key={author.cast_id}>
         {author.name}
