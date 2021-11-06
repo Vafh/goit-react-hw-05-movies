@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { fetchMovieDetailsAuthors } from "../../service/Request";
-const MovieAuthorsPage = ({ filmsId, img }) => {
+import { MovieAuthorsPageStyles } from "./MovieAuthorsPageStyles";
+
+const MovieAuthorsPage = ({ filmsId, img, IMG_PLUG }) => {
   const [authors, setAuthors] = useState(null);
   useEffect(() => {
     fetchMovieDetailsAuthors(filmsId)
@@ -10,17 +12,21 @@ const MovieAuthorsPage = ({ filmsId, img }) => {
   return (
     authors &&
     authors.cast?.map((author) => (
-      <li key={author.cast_id}>
+      <MovieAuthorsPageStyles key={author.cast_id}>
         {author.name}
-        <p>Character: {author.character}</p>
-        {author.profile_path && (
+        <p className="additional-information-list__text">
+          Character: {author.character}
+        </p>
+        {author.profile_path ? (
           <img
-            className="movieCard"
+            className="ImageGalleryItem-image"
             src={`${img}/${author.profile_path}`}
             alt=""
           />
+        ) : (
+          <img className="ImageGalleryItem-image" src={`${IMG_PLUG}`} alt="" />
         )}
-      </li>
+      </MovieAuthorsPageStyles>
     ))
   );
 };

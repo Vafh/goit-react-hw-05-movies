@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { fetchMovieDetailsReviews } from "../../service/Request";
+import { MovieReviewsPageStyles } from "./MovieReviewsPageStyles";
 const MovieReviewsPage = ({ filmsId }) => {
   const [reviews, setReviews] = useState(null);
   useEffect(() => {
@@ -9,10 +10,10 @@ const MovieReviewsPage = ({ filmsId }) => {
   }, [filmsId]);
   if (reviews?.results?.length) {
     return reviews?.results?.map((review) => (
-      <li key={review.id}>
+      <MovieReviewsPageStyles key={review.id}>
         Author: {review.author}
-        <p>{review.content}</p>
-      </li>
+        <p className="revievs__text">{review.content}</p>
+      </MovieReviewsPageStyles>
     ));
   }
   return (

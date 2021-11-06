@@ -7,7 +7,6 @@ const CardMovie = ({ filmTrend, location, BASE_IMG }) => {
       {filmTrend?.map((film) => {
         return (
           <CardMovieStyles key={film.id}>
-            {/* <li key={film.id} className="cardMovie-item"> */}
             <Link
               key={film.id}
               to={{
@@ -24,7 +23,6 @@ const CardMovie = ({ filmTrend, location, BASE_IMG }) => {
               )}
               <p>{film.original_title}</p>
             </Link>
-            {/* </li> */}
           </CardMovieStyles>
         );
       })}
